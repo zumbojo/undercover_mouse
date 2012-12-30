@@ -16,6 +16,11 @@ void setup() {
 }
 
 void loop() {
+  motor.run(RELEASE);
+  wiggle(); 
+  delay(5000);
+  
+  /*
   Serial.print("tick");
   
   motor.run(FORWARD);      // turn it on going forward
@@ -28,18 +33,19 @@ void loop() {
   Serial.print("tack");
   motor.run(RELEASE);      // stopped
   delay(1000);
+  */
 }
 
 // 
 void wiggle() {
   motor.run(FORWARD);
-  delay(50)
+  delay(500);
   motor.run(BACKWARD);
-  delay(30)
+  delay(300);
   motor.run(FORWARD);
-  delay(50)
+  delay(500);
   motor.run(BACKWARD);
-  delay(30)
+  delay(300);
   motor.run(RELEASE);
-  delay(1500)
+  delay(1500);
 }
