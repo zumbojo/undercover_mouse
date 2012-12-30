@@ -7,6 +7,7 @@
 AF_DCMotor motor(2, MOTOR12_64KHZ); // create motor #2, 64KHz pwm
 
 void wiggle();
+void randomAction(boolean brief); // true for a quick action, false for a longer one
 
 void setup() {
   Serial.begin(9600);
@@ -18,6 +19,7 @@ void setup() {
 void loop() {
   motor.run(RELEASE);
   wiggle(); 
+  motor.run(RELEASE);
   delay(5000);
   
   /*
@@ -38,14 +40,28 @@ void loop() {
 
 // 
 void wiggle() {
-  motor.run(FORWARD);
-  delay(500);
-  motor.run(BACKWARD);
-  delay(300);
-  motor.run(FORWARD);
-  delay(500);
-  motor.run(BACKWARD);
-  delay(300);
-  motor.run(RELEASE);
-  delay(1500);
+  for (int i = 0; i < 10; i++) {
+    randomAction(true);
+  }  
+}
+
+void randomAction(boolean brief) {
+  int duration = random(50, 1000);
+  if (!brief) {
+    duration *= 10;
+  }
+  
+  int action = random(1,3);  
+  if (action == 3) { // BRAKE is not used
+    action = 4; // but RELEASE is.
+  }
+  /* from AFMotor.h:
+  #define FORWARD 1
+  #define BACKWARD 2
+  #define BRAKE 3
+  #define RELEASE 4
+  */
+  
+  motor.run(action);
+  delay(duration);
 }
