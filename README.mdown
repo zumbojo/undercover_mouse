@@ -1,0 +1,10 @@
+undercover_mouse
+================
+
+An Arduino program for controlling an [Undercover Mouse](http://www.amazon.com/Undercover-Mouse-Electronic-Cat-Toy/dp/B0010ML5ME) cat toy.  You will need an [mshield](http://www.ladyada.net/make/mshield/) and the [AFMotor library](https://github.com/adafruit/Adafruit-Motor-Shield-library) to get it working.
+
+
+License
+=======
+
+[MIT](http://www.opensource.org/licenses/mit-license.php).
