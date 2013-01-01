@@ -9,11 +9,6 @@
 
 AF_DCMotor motor(2, MOTOR12_64KHZ); // create motor #2, 64KHz pwm
 
-void rest();
-void play();
-void randomAction(boolean brief); // true for a quick action, false for a longer one
-void wiggle();
-
 void setup() {
   motor.setSpeed(150); // max 255
 }
@@ -28,31 +23,28 @@ void rest() {
 }
 
 void play() {
-  for (int i = 0; i < 10; i++) {
-    randomAction(true);
-  } 
-  
+  int elapsed = 0;
+  while (elapsed < (15 * MINUTE_OF_MILLISECONDS)) {
+    elapsed += randomAction();
+  }
+
   motor.run(RELEASE);
 }
 
-int randomAction(boolean brief) { // returns how long it ran for
-  int duration = random(50, 1000);
-  if (!brief) {
-    duration *= 10;
-  }
-  
-  int action = random(1,3);  
-  if (action == 3) { // BRAKE is not used
-    action = 4; // but RELEASE is.
-  }
+int randomAction() { // returns how long it ran for
   /* from AFMotor.h:
   #define FORWARD 1
   #define BACKWARD 2
   #define BRAKE 3
   #define RELEASE 4
   */
+  int action = random(1,4);  
+  if (action == 3) { // BRAKE is not used
+    action = 4; // but RELEASE is.
+  }
   
   motor.run(action);
+  int duration = random(50, 1000);
   delay(duration);
   return duration;
 }
