@@ -19,12 +19,12 @@ void loop() {
 }
 
 void rest() {
-  delay(2 * MINUTE_OF_MILLISECONDS);
+  delay(2 * HOUR_OF_MILLISECONDS);
 }
 
 void play() {
   unsigned long elapsed = 0;
-  while (elapsed < (1 * MINUTE_OF_MILLISECONDS)) {
+  while (elapsed < (15 * MINUTE_OF_MILLISECONDS)) {
     boolean wiggleThisTime = (random(0,10) == 0); // wiggle occasionally
     
     elapsed += wiggleThisTime ? wiggle() : randomAction();
