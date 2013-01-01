@@ -25,7 +25,9 @@ void rest() {
 void play() {
   int elapsed = 0;
   while (elapsed < (15 * MINUTE_OF_MILLISECONDS)) {
-    elapsed += randomAction();
+    boolean wiggleThisTime = (random(0,10) == 0); // wiggle occasionally
+    
+    elapsed += wiggleThisTime ? wiggle() : randomAction();
   }
 
   motor.run(RELEASE);
@@ -49,6 +51,15 @@ int randomAction() { // returns how long it ran for
   return duration;
 }
 
-void wiggle() {
-  ; // todo
+int wiggle() {
+  const int stepDuration = 250;
+  int steps = random(3,7);
+  
+  for (int i = 0; i < steps; i++) {
+    int action = (i % 2) ? FORWARD : BACKWARD;
+    motor.run(action);
+    delay(stepDuration);
+  }
+  
+  return stepDuration * steps;
 }
