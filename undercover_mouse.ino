@@ -4,49 +4,38 @@
 
 #include <AFMotor.h>
 
+#define MINUTE_OF_MILLISECONDS 60000
+#define HOUR_OF_MILLISECONDS (MINUTE_OF_MILLISECONDS * 60)
+
 AF_DCMotor motor(2, MOTOR12_64KHZ); // create motor #2, 64KHz pwm
 
+void rest();
 void play();
 void randomAction(boolean brief); // true for a quick action, false for a longer one
 void wiggle();
 
 void setup() {
-  Serial.begin(9600);
-  Serial.println("Motor test!");
-  
   motor.setSpeed(150); // max 255
 }
 
 void loop() {
-  motor.run(RELEASE);
-  wiggle(); 
-  motor.run(RELEASE);
-  delay(5000);
-  
-  /*
-  Serial.print("tick");
-  
-  motor.run(FORWARD);      // turn it on going forward
-  delay(1000);
-
-  Serial.print("tock");
-  motor.run(BACKWARD);     // the other way
-  delay(1000);
-  
-  Serial.print("tack");
-  motor.run(RELEASE);      // stopped
-  delay(1000);
-  */
+  play();
+  rest();
 }
 
-// 
+void rest() {
+  delay(2 * HOUR_OF_MILLISECONDS);
+}
+
 void play() {
   for (int i = 0; i < 10; i++) {
     randomAction(true);
-  }  
+  } 
+  
+  motor.run(RELEASE);
 }
 
-void randomAction(boolean brief) {
+int randomAction(boolean brief) { // returns how long it ran for
   int duration = random(50, 1000);
   if (!brief) {
     duration *= 10;
@@ -65,6 +54,7 @@ void randomAction(boolean brief) {
   
   motor.run(action);
   delay(duration);
+  return duration;
 }
 
 void wiggle() {
