@@ -6,8 +6,9 @@
 
 AF_DCMotor motor(2, MOTOR12_64KHZ); // create motor #2, 64KHz pwm
 
-void wiggle();
+void play();
 void randomAction(boolean brief); // true for a quick action, false for a longer one
+void wiggle();
 
 void setup() {
   Serial.begin(9600);
@@ -39,7 +40,7 @@ void loop() {
 }
 
 // 
-void wiggle() {
+void play() {
   for (int i = 0; i < 10; i++) {
     randomAction(true);
   }  
@@ -64,4 +65,8 @@ void randomAction(boolean brief) {
   
   motor.run(action);
   delay(duration);
+}
+
+void wiggle() {
+  ; // todo
 }
