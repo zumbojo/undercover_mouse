@@ -10,7 +10,7 @@
 AF_DCMotor motor(2, MOTOR12_64KHZ); // create motor #2, 64KHz pwm
 
 void setup() {
-  motor.setSpeed(150); // max 255
+  motor.setSpeed(50); // max 255
 }
 
 void loop() {
@@ -19,12 +19,12 @@ void loop() {
 }
 
 void rest() {
-  delay(2 * HOUR_OF_MILLISECONDS);
+  delay(2 * MINUTE_OF_MILLISECONDS);
 }
 
 void play() {
-  int elapsed = 0;
-  while (elapsed < (15 * MINUTE_OF_MILLISECONDS)) {
+  unsigned long elapsed = 0;
+  while (elapsed < (1 * MINUTE_OF_MILLISECONDS)) {
     boolean wiggleThisTime = (random(0,10) == 0); // wiggle occasionally
     
     elapsed += wiggleThisTime ? wiggle() : randomAction();
